@@ -1,0 +1,76 @@
+generator client {
+    provider = "prisma-client-js"
+}
+
+datasource db {
+    provider = "postgresql"
+    url      = env("DATABASE_URL")
+}
+
+model Locatario {
+    id               String    @id @default(uuid())
+    nome             String    @map("nome") @db.VarChar
+    sexo             Boolean   @map("sexo") @db.Boolean
+    telefone         String    @map("telefone") @db.VarChar
+    email            String    @unique() @map("email") @db.VarChar
+    dataDeNascimento DateTime  @map("dataDeNascimento") @db.Date
+    cpf              String    @unique() @map("cpf") @db.VarChar
+    createdAt        DateTime  @default(now())
+    updatedAt        DateTime  @default(now())
+    deletedAt        DateTime  @default(now())
+    aluguel          Aluguel[]
+
+    @@map("Locatario")
+}
+
+model Aluguel {
+    id            String    @id @default(uuid())
+    dataRetirada  DateTime  @map("dataRetirada") @db.Timestamp()
+    dataDevolucao DateTime  @map("dataDevolucao") @db.Timestamp()
+    locatario     Locatario @relation(fields: [locatarioId], references: [id])
+    locatarioId   String    @map("locatarioId") @db.VarChar
+    livro         Livro[]
+    createdAt     DateTime  @default(now())
+    updatedAt     DateTime  @default(now())
+    deletedAt     DateTime  @default(now())
+
+    @@map("Aluguel")
+}
+
+model Autor {
+    id              String           @id @default(uuid())
+    sexo            Boolean          @map("sexo") @db.Boolean
+    anoDeNascimento Int              @map("anoDeNascimento") @db.Integer
+    cpf             String           @unique() @map("cpf") @db.VarChar
+    autorPorLivros  AutorPorLivros[]
+    createdAt       DateTime         @default(now())
+    updatedAt       DateTime         @default(now())
+    deletedAt       DateTime         @default(now())
+
+    @@map("Autor")
+}
+
+model Livro {
+    id               String           @id @default(uuid())
+    nome             String           @map("nome") @db.VarChar
+    isbn             String           @unique()
+    dataDePublicacao DateTime         @map("dataDePublicacao") @db.Date
+    autorPorLivros   AutorPorLivros[]
+    aluguel          Aluguel?         @relation(fields: [aluguelId], references: [id])
+    aluguelId        String?          @map("aluguelId") @db.VarChar
+    createdAt        DateTime         @default(now())
+    updatedAt        DateTime         @default(now())
+    deletedAt        DateTime         @default(now())
+
+    @@map("Livro")
+}
+
+model AutorPorLivros {
+    autorId String @map("autorId") @db.VarChar
+    livroId String @map("livroId") @db.VarChar
+    autor   Autor  @relation(fields: [autorId], references: [id])
+    livro   Livro  @relation(fields: [livroId], references: [id])
+
+    @@id([autorId, livroId])
+    @@map("AutorPorLivros")
+}
