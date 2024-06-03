@@ -39,6 +39,7 @@ model Aluguel {
 
 model Autor {
     id              String           @id @default(uuid())
+    nome            String           @unique() @map("nome") @db.VarChar
     sexo            Boolean          @map("sexo") @db.Boolean
     anoDeNascimento Int              @map("anoDeNascimento") @db.Integer
     cpf             String           @unique() @map("cpf") @db.VarChar
