@@ -1,4 +1,4 @@
-import { IsBoolean, IsNotEmpty, IsNumber, IsString } from "class-validator";
+import { IsNotEmpty, IsNumber, IsString } from "class-validator";
 
 export class CriaAutorDto {
 
@@ -7,8 +7,8 @@ export class CriaAutorDto {
   nome: string;
 
   @IsNotEmpty()
-  @IsBoolean()
-  sexo: boolean;
+  @IsString()
+  sexo: string;
 
   @IsNotEmpty()
   @IsNumber()

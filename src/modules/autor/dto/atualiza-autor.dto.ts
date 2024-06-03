@@ -1,4 +1,5 @@
-export class AtualizaAutorDto {
-    name?: string;
-    email?: string;
+import { CriaAutorDto } from "./cria-autor.dto";
+
+export class AtualizaAutorDto extends CriaAutorDto {
+ 
   }

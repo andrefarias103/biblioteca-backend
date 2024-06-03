@@ -10,7 +10,7 @@ datasource db {
 model Locatario {
     id               String    @id @default(uuid())
     nome             String    @map("nome") @db.VarChar
-    sexo             Boolean   @map("sexo") @db.Boolean
+    sexo             String    @map("sexo") @db.VarChar
     telefone         String    @map("telefone") @db.VarChar
     email            String    @unique() @map("email") @db.VarChar
     dataDeNascimento DateTime  @map("dataDeNascimento") @db.Date
@@ -40,7 +40,7 @@ model Aluguel {
 model Autor {
     id              String           @id @default(uuid())
     nome            String           @unique() @map("nome") @db.VarChar
-    sexo            Boolean          @map("sexo") @db.Boolean
+    sexo            String           @map("sexo") @db.VarChar
     anoDeNascimento Int              @map("anoDeNascimento") @db.Integer
     cpf             String           @unique() @map("cpf") @db.VarChar
     autorPorLivros  AutorPorLivros[]

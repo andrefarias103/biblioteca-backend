@@ -1,5 +1,5 @@
 import { Module } from '@nestjs/common';
-import { PrismaService } from 'prisma/prisma.service';
+import { PrismaService } from "./../../../prisma/prisma.service";
 import { AUTOR_REPOSITORIO } from './constantes';
 import { AutorController } from './controladores/autor.controller';
 import { AutorRepositorio } from './repositorios/autor.repositorio';

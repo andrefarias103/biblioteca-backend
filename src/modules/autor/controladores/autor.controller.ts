@@ -7,6 +7,7 @@ import {
   Patch,
   Post
 } from '@nestjs/common';
+import { ApiOperation, ApiResponse } from '@nestjs/swagger';
 import { Autor } from '../autor.entity';
 import { AtualizaAutorDto } from '../dto/atualiza-autor.dto';
 import { CriaAutorDto } from '../dto/cria-autor.dto';
@@ -17,8 +18,14 @@ export class AutorController {
   constructor(private readonly autorService: AutorService) {}
 
   @Post()
-  cadastrar(@Body() dadosAutor: CriaAutorDto) {
-    return this.autorService.cadastrar(dadosAutor);
+  @ApiOperation({ summary: 'Cadastrar um Autor'})
+  @ApiResponse({
+    status: 201,
+    description: 'Cadastro do autor com sucesso',
+    // type: CreateTodosSwagger
+  })
+  async cadastrar(@Body() dadosAutor: CriaAutorDto) {
+    return await this.autorService.cadastrar(dadosAutor);
   }
 
   @Get()
@@ -32,17 +39,20 @@ export class AutorController {
   }
 
   @Get('/nome/:nome')
+  @ApiOperation({ summary: 'Listar Autor por Nome'})
   async buscaAutorPorNome(@Param('nome') nome: string): Promise<Autor> {
     return await this.autorService.buscaAutorPorNome(nome);
   }
 
   @Patch(':id')
+  @ApiOperation({ summary: 'Atualizar os dados de um Autor existente'})
   async atualizar(@Param('id') id: string, @Body() dadosAutor: AtualizaAutorDto): Promise<Autor> {
     return await this.autorService.atualizar(id, dadosAutor);
   }
 
   @Delete(':id')
-  remover(@Param('id') id: string) {
-    return this.autorService.remover(id);
+  @ApiOperation({ summary: 'Excluir um Autor'})
+  async remover(@Param('id') id: string) {
+    return await this.autorService.remover(id);
   }
 }

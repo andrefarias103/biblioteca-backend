@@ -1,7 +1,7 @@
 export class Autor {
   id: string;
   nome: string;
-  sexo: boolean;
+  sexo: string;
   anoDeNascimento: number;
   cpf: string;
   }
