@@ -8,9 +8,9 @@ import {
   Post
 } from '@nestjs/common';
 import { ApiOperation, ApiResponse } from '@nestjs/swagger';
-import { Autor } from '../autor.entity';
 import { AtualizaAutorDto } from '../dto/atualiza-autor.dto';
-import { CriaAutorDto } from '../dto/cria-autor.dto';
+import { CadastraAutorDto } from '../dto/cadastra-autor.dto';
+import { ListaAutorDto } from '../dto/lista-autor.dto';
 import { AutorService } from './../servicos/autor.service';
 
 @Controller('autor')
@@ -18,19 +18,20 @@ export class AutorController {
   constructor(private readonly autorService: AutorService) {}
 
   @Post()
-  @ApiOperation({ summary: 'Cadastrar um Autor'})
+  @ApiOperation({ summary: 'Cadastra um Autor'})
   @ApiResponse({
     status: 201,
     description: 'Cadastro do autor com sucesso',
     // type: CreateTodosSwagger
   })
-  async cadastrar(@Body() dadosAutor: CriaAutorDto) {
+  async cadastrar(@Body() dadosAutor: CadastraAutorDto) {
     return await this.autorService.cadastrar(dadosAutor);
   }
 
   @Get()
-  findAll() {
-    return this.autorService.findAll();
+  @ApiOperation({ summary: 'Lista todos os autores'})
+  async listarTodos(): Promise<ListaAutorDto[]> {
+    return this.autorService.listarTodos();
   }
 
   @Get(':id')
@@ -39,19 +40,19 @@ export class AutorController {
   }
 
   @Get('/nome/:nome')
-  @ApiOperation({ summary: 'Listar Autor por Nome'})
-  async buscaAutorPorNome(@Param('nome') nome: string): Promise<Autor> {
+  @ApiOperation({ summary: 'Lista autor por nome'})
+  async buscaAutorPorNome(@Param('nome') nome: string): Promise<ListaAutorDto> {
     return await this.autorService.buscaAutorPorNome(nome);
   }
 
   @Patch(':id')
-  @ApiOperation({ summary: 'Atualizar os dados de um Autor existente'})
-  async atualizar(@Param('id') id: string, @Body() dadosAutor: AtualizaAutorDto): Promise<Autor> {
+  @ApiOperation({ summary: 'Atualiza os dados de um autor existente'})
+  async atualizar(@Param('id') id: string, @Body() dadosAutor: AtualizaAutorDto): Promise<ListaAutorDto> {
     return await this.autorService.atualizar(id, dadosAutor);
   }
 
   @Delete(':id')
-  @ApiOperation({ summary: 'Excluir um Autor'})
+  @ApiOperation({ summary: 'Exclui um autor'})
   async remover(@Param('id') id: string) {
     return await this.autorService.remover(id);
   }

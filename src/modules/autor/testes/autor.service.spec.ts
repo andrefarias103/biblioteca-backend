@@ -1,11 +1,11 @@
 import { Test, TestingModule } from '@nestjs/testing';
 import { v4 as uuidv4 } from 'uuid';
-import { AUTOR_REPOSITORIO } from '../constantes';
 import { AutorController } from '../controladores/autor.controller';
-import { CriaAutorDto } from '../dto/cria-autor.dto';
+import { CadastraAutorDto } from '../dto/cadastra-autor.dto';
 import { AutorRepositorio } from '../repositorios/autor.repositorio';
 import { AutorService } from '../servicos/autor.service';
 import { PrismaService } from "./../../../../prisma/prisma.service";
+import { AUTOR_REPOSITORIO } from './../../../common/constantes/constantes';
 
 describe('AutorService', () => {
 
@@ -25,9 +25,9 @@ describe('AutorService', () => {
     autorService = module.get<AutorService>(AutorService);
   });
 
-  describe('AutorService - Cadastro', () => {
+  describe(' - Cadastro', () => {
     it('Deve cadastrar um novo autor', async () => {
-        const mockAutorDto: CriaAutorDto = {
+        const mockAutorDto: CadastraAutorDto = {
             nome: "Cristiano Ramos",
             sexo: "Masculino",
             anoDeNascimento: 2000,
@@ -43,7 +43,7 @@ describe('AutorService', () => {
     });
 
     it('Deve ocorrer erros durante o cadastro do autor', async () => {
-        const mockAutorDto: CriaAutorDto = {
+        const mockAutorDto: CadastraAutorDto = {
             nome: "Cristiano Ramos",
             sexo: "Masculino",
             anoDeNascimento: 2000,
@@ -58,10 +58,10 @@ describe('AutorService', () => {
     });
   });
 
-  describe('AutorService - Atualização', () => {
-    it('Deve atualiar os dados de um autor existente', async () => {
+  describe(' - Atualização', () => {
+    it('Deve atualizar os dados de um autor existente', async () => {
         const id: string = uuidv4();
-        const mockAutorDto: CriaAutorDto = {
+        const mockAutorDto: CadastraAutorDto = {
             nome: "Cristiano Ramos",
             sexo: "Masculino",
             anoDeNascimento: 2000,
@@ -78,7 +78,7 @@ describe('AutorService', () => {
 
     it('Deve ocorrer erros durante a atualização dos dados do autor', async () => {
         const id: string = uuidv4();
-        const mockAutorDto: CriaAutorDto = {
+        const mockAutorDto: CadastraAutorDto = {
             nome: "Cristiano Ramos",
             sexo: "Masculino",
             anoDeNascimento: 2000,
@@ -93,10 +93,10 @@ describe('AutorService', () => {
     });
   });  
 
-  describe('AutorService - Exclusão', () => {
+  describe(' - Exclusão', () => {
     it('Deve apagar os registros de um autor existente', async () => {
         const id: string = uuidv4();
-        const mockAutorDto: CriaAutorDto = {
+        const mockAutorDto: CadastraAutorDto = {
             nome: "Cristiano Ramos",
             sexo: "Masculino",
             anoDeNascimento: 2000,
@@ -113,7 +113,7 @@ describe('AutorService', () => {
 
     it('Deve ocorrer erro ao apagar um autor existente', async () => {
         const id: string = uuidv4();
-        const mockAutorDto: CriaAutorDto = {
+        const mockAutorDto: CadastraAutorDto = {
             nome: "Cristiano Ramos",
             sexo: "Masculino",
             anoDeNascimento: 2000,
@@ -128,11 +128,11 @@ describe('AutorService', () => {
     });
   });    
 
-  describe('AutorService - Busca autor por nome', () => {
+  describe(' - Busca autor por nome', () => {
     it('Deve buscar por nome os registros de um autor existente', async () => {
         const id: string = uuidv4();
         const nome: string = 'Cristiano Ramos';
-        const mockAutorDto: CriaAutorDto = {
+        const mockAutorDto: CadastraAutorDto = {
             nome: "Cristiano Ramos",
             sexo: "Masculino",
             anoDeNascimento: 2000,
@@ -150,7 +150,7 @@ describe('AutorService', () => {
     it('Deve ocorrer erro ao buscar um autor por nome', async () => {
         const id: string = uuidv4();
         const nome: string = 'Cristiano Ramos';
-        const mockAutorDto: CriaAutorDto = {
+        const mockAutorDto: CadastraAutorDto = {
             nome: "Cristiano Ramos",
             sexo: "Masculino",
             anoDeNascimento: 2000,

@@ -1,6 +1,6 @@
 import { Module } from '@nestjs/common';
 import { PrismaService } from "./../../../prisma/prisma.service";
-import { AUTOR_REPOSITORIO } from './constantes';
+import { AUTOR_REPOSITORIO } from './../../common/constantes/constantes';
 import { AutorController } from './controladores/autor.controller';
 import { AutorRepositorio } from './repositorios/autor.repositorio';
 import { AutorService } from './servicos/autor.service';

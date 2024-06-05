@@ -1,0 +1,10 @@
+import { AtualizaLivroDto } from "../dto/atualiza-livro.dto";
+import { CadastraLivroDto } from "../dto/cadastra-livro.dto";
+import { ListaLivroDto } from "../dto/lista-livro.dto";
+
+export interface ILivroRepositorio {
+    cadastrar(data: CadastraLivroDto): Promise<ListaLivroDto>;
+    atualizar(id: string, data: AtualizaLivroDto): Promise<ListaLivroDto>;
+    remover(id: string);
+    buscaPorId(id: string): Promise<ListaLivroDto | null>;
+}

@@ -1,11 +1,12 @@
-import { Autor } from "../autor.entity";
 import { AtualizaAutorDto } from "../dto/atualiza-autor.dto";
-import { CriaAutorDto } from "../dto/cria-autor.dto";
+import { CadastraAutorDto } from "../dto/cadastra-autor.dto";
+import { ListaAutorDto } from "../dto/lista-autor.dto";
 
 export interface IAutorRepositorio {
-    cadastrar(data: CriaAutorDto): Promise<Autor>;
-    atualizar(id: string, data: AtualizaAutorDto): Promise<Autor>;
+    cadastrar(data: CadastraAutorDto): Promise<ListaAutorDto>;
+    atualizar(id: string, data: AtualizaAutorDto): Promise<ListaAutorDto>;
     remover(id: string);
-    buscaPorCondicao(nome: string): Promise<Autor | null>;
+    buscaPorNome(nome: string): Promise<ListaAutorDto | null>;
+    listarTodos(): Promise<ListaAutorDto[]> | null;
     // Outros métodos...
   }

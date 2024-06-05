@@ -1,21 +1,20 @@
 import { Inject, Injectable } from '@nestjs/common';
-import { Autor } from '../autor.entity';
-import { AUTOR_REPOSITORIO } from '../constantes';
 import { AtualizaAutorDto } from '../dto/atualiza-autor.dto';
-import { CriaAutorDto } from '../dto/cria-autor.dto';
+import { CadastraAutorDto } from '../dto/cadastra-autor.dto';
+import { ListaAutorDto } from '../dto/lista-autor.dto';
 import { IAutorRepositorio } from '../interfaces/autor-repositorio.interface';
+import { AUTOR_REPOSITORIO } from './../../../common/constantes/constantes';
 
 @Injectable()
 export class AutorService {
-
   constructor(@Inject(AUTOR_REPOSITORIO) private readonly autorRepositorio: IAutorRepositorio) {}
 
-  async cadastrar(dadosAutor: CriaAutorDto):Promise<CriaAutorDto> {
+  async cadastrar(dadosAutor: CadastraAutorDto):Promise<ListaAutorDto> {
     return await this.autorRepositorio.cadastrar(dadosAutor);
   }
 
-  findAll() {
-    return `This action returns all autor`;
+  async listarTodos(): Promise<ListaAutorDto[]> {
+    return this.autorRepositorio.listarTodos();
   }
 
   findOne(id: number) {
@@ -30,9 +29,8 @@ export class AutorService {
     return await this.autorRepositorio.remover(id);
   }
 
-
-  async buscaAutorPorNome(nome: string): Promise<Autor> {
-    const autor = await this.autorRepositorio.buscaPorCondicao(nome);
+  async buscaAutorPorNome(nome: string): Promise<ListaAutorDto> {
+    const autor = await this.autorRepositorio.buscaPorNome(nome);
     return autor;
   }
 }

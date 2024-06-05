@@ -1,5 +1,3 @@
-import { CriaAutorDto } from "./cria-autor.dto";
+import { CadastraAutorDto } from "./cadastra-autor.dto";
 
-export class AtualizaAutorDto extends CriaAutorDto {
- 
-  }
+export class AtualizaAutorDto extends CadastraAutorDto {}

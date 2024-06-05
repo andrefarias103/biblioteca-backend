@@ -1,12 +1,12 @@
-import { IsNotEmpty, IsNumber, IsString } from "class-validator";
+import { IsNotEmpty, IsNumber, IsOptional, IsString } from "class-validator";
 
-export class CriaAutorDto {
+export class CadastraAutorDto {
 
   @IsNotEmpty()
   @IsString()
   nome: string;
 
-  @IsNotEmpty()
+  @IsOptional()
   @IsString()
   sexo: string;
 
