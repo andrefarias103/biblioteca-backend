@@ -1,11 +1,13 @@
 import { Test, TestingModule } from "@nestjs/testing";
 import { v4 as uuidv4 } from 'uuid';
+import { AutorRepositorio } from "../../../modules/autor/repositorios/autor.repositorio";
+import { AutorPorLivroRepositorio } from "../../../modules/autorPorLivro/repositorios/autorPorLivro.repositorio";
 import { LivroController } from "../controladores/livro.controller";
 import { CadastraLivroDto } from "../dto/cadastra-livro.dto";
 import { LivroRepositorio } from "../repositorios/livro.repositorio";
 import { LivroService } from "../servicos/livro.service";
 import { PrismaService } from "./../../../../prisma/prisma.service";
-import { LIVRO_REPOSITORIO } from './../../../common/constantes/constantes';
+import { AUTORPORLIVRO_REPOSITORIO, AUTOR_REPOSITORIO, LIVRO_REPOSITORIO } from './../../../common/constantes/constantes';
 
 describe('LivroService', () => {
 
@@ -15,13 +17,11 @@ describe('LivroService', () => {
         const module: TestingModule = await Test.createTestingModule({
             imports: [],
             controllers: [LivroController],
-            providers: [LivroService, LivroRepositorio, PrismaService,
-                {
-                    provide: LIVRO_REPOSITORIO,
-                    useClass: LivroRepositorio
-                }
-            ]
-        }).compile();
+            providers: [LivroService,  LivroRepositorio, PrismaService,   
+                   { provide: LIVRO_REPOSITORIO,  useClass: LivroRepositorio  },
+                   { provide: AUTOR_REPOSITORIO,  useClass: AutorRepositorio  },
+                   { provide: AUTORPORLIVRO_REPOSITORIO,  useClass: AutorPorLivroRepositorio },]  
+          }).compile();
 
         livroService = module.get<LivroService>(LivroService);
     } );
@@ -31,7 +31,8 @@ describe('LivroService', () => {
             const mockLivroDto: CadastraLivroDto = {
                 nome: "Cristiano Ramos",
                 isbn: "Masculino",
-                dataDePublicacao: new Date('2000-12-05'),
+                dataDePublicacao: "2000-12-05",
+                autorPorLivros: uuidv4(),
             };
             const resultado = { id: uuidv4(), ...mockLivroDto };
     
@@ -46,7 +47,8 @@ describe('LivroService', () => {
             const mockLivroDto: CadastraLivroDto = {
                 nome: "Cristiano Ramos",
                 isbn: "Masculino",
-                dataDePublicacao: new Date('2000-12-05'),
+                dataDePublicacao: "2000-12-05",
+                autorPorLivros: uuidv4(),
             };
             const error = new Error('Database error');
     
@@ -63,7 +65,8 @@ describe('LivroService', () => {
             const mockLivroDto: CadastraLivroDto = {
                 nome: "Cristiano Ramos",
                 isbn: "Masculino",
-                dataDePublicacao: new Date('2000-12-05'),
+                dataDePublicacao: "2000-12-05",
+                autorPorLivros: uuidv4(),
             };
             const resultado = { id, ...mockLivroDto };
     
@@ -79,7 +82,8 @@ describe('LivroService', () => {
             const mockLivroDto: CadastraLivroDto = {
                 nome: "Cristiano Ramos",
                 isbn: "Masculino",
-                dataDePublicacao: new Date('2000-12-05'),
+                dataDePublicacao: "2000-12-05",
+                autorPorLivros: uuidv4(),
             };
             const error = new Error('Database error');
     
@@ -96,7 +100,8 @@ describe('LivroService', () => {
             const mockLivroDto: CadastraLivroDto = {
                 nome: "Cristiano Ramos",
                 isbn: "Masculino",
-                dataDePublicacao: new Date('2000-12-05'),
+                dataDePublicacao: "2000-12-05",
+                autorPorLivros: uuidv4(),
             };
             const resultado = { id, ...mockLivroDto };
     
@@ -112,7 +117,8 @@ describe('LivroService', () => {
             const mockLivroDto: CadastraLivroDto = {
                 nome: "Cristiano Ramos",
                 isbn: "Masculino",
-                dataDePublicacao: new Date('2000-12-05'),
+                dataDePublicacao: "2000-12-05",
+                autorPorLivros: uuidv4(),
             };
             const error = new Error('Database error');
     

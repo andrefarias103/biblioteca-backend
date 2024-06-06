@@ -25,6 +25,15 @@ export class AutorRepositorio implements IAutorRepositorio {
     return await this.prisma.autor.findMany();
   }
 
+  async checaSeTodosIdsExistem(listaId: string[]): Promise<Boolean> {
+    const autoresEncontrados = this.prisma.autor.findMany({ where: { id: { in: listaId} }});
+    return ((await autoresEncontrados).length === listaId.length)
+  }
+
+  async buscaPorId(id: string): Promise<ListaAutorDto | null> {
+    return await this.prisma.autor.findUnique({ where: { id } });
+  }
+
   async buscaPorNome(nome: string): Promise<ListaAutorDto | null> {
     return await this.prisma.autor.findUnique({ where: { nome } });
   }

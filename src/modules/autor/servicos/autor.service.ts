@@ -17,8 +17,8 @@ export class AutorService {
     return this.autorRepositorio.listarTodos();
   }
 
-  findOne(id: number) {
-    return `This action returns a #${id} autor`;
+  async buscaPorId(id: string): Promise<ListaAutorDto> {
+    return this.autorRepositorio.buscaPorId(id);
   }
 
   async atualizar(id: string, dadosAutor: AtualizaAutorDto) {

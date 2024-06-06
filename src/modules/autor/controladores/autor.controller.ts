@@ -35,8 +35,9 @@ export class AutorController {
   }
 
   @Get(':id')
-  findOne(@Param('id') id: string) {
-    return this.autorService.findOne(+id);
+  @ApiOperation({ summary: 'Lista autor por Id'})
+  async BuscaPorId (@Param('id') id: string): Promise<ListaAutorDto> {
+    return this.autorService.buscaPorId(id);
   }
 
   @Get('/nome/:nome')

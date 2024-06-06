@@ -1,7 +1,8 @@
 import { Module } from '@nestjs/common';
+import { AutorRepositorio } from '../autor/repositorios/autor.repositorio';
 import { AutorPorLivroRepositorio } from '../autorPorLivro/repositorios/autorPorLivro.repositorio';
 import { PrismaService } from "./../../../prisma/prisma.service";
-import { AUTORPORLIVRO_REPOSITORIO, LIVRO_REPOSITORIO } from './../../common/constantes/constantes';
+import { AUTORPORLIVRO_REPOSITORIO, AUTOR_REPOSITORIO, LIVRO_REPOSITORIO } from './../../common/constantes/constantes';
 import { LivroController } from './controladores/livro.controller';
 import { LivroRepositorio } from './repositorios/livro.repositorio';
 import { LivroService } from './servicos/livro.service';
@@ -14,8 +15,10 @@ import { LivroService } from './servicos/livro.service';
     PrismaService, 
     { provide: LIVRO_REPOSITORIO, 
       useClass: LivroRepositorio  },
-      { provide: AUTORPORLIVRO_REPOSITORIO, 
-        useClass: AutorPorLivroRepositorio  }
+      { provide: AUTOR_REPOSITORIO, 
+        useClass: AutorRepositorio  },
+        { provide: AUTORPORLIVRO_REPOSITORIO, 
+          useClass: AutorPorLivroRepositorio  },        
   ],
 })
 export class LivroModule {}

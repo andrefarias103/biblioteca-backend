@@ -4,9 +4,8 @@ export class ListaLivroDto {
     id: string;
     nome: string;
     isbn: string;
-    dataDePublicacao: Date;
-    autor: string[];
-    autorId: string;
+    dataDePublicacao: string;
+    autorPorLivros: string[];
     aluguel?: Aluguel;
     aluguelId?: string;
 }
