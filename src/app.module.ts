@@ -1,8 +1,8 @@
 import { Module } from '@nestjs/common';
-import { AluguelModule } from './modules/aluguel/aluguel.module';
-import { AutorModule } from './modules/autor/autor.module';
-import { LivroModule } from './modules/livro/livro.module';
-import { LocatarioModule } from './modules/locatario/locatario.module';
+import { AluguelModule } from './modulos/aluguel/aluguel.module';
+import { AutorModule } from './modulos/autor/autor.module';
+import { LivroModule } from './modulos/livro/livro.module';
+import { LocatarioModule } from './modulos/locatario/locatario.module';
 
 @Module({
   imports: [
