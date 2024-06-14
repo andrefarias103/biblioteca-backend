@@ -56,6 +56,12 @@ export class LivroRepositorio implements ILivroRepositorio {
     const livrosDisponiveis = await this.prisma.livro.findMany({ where: { aluguelId: null }, include: { autorPorLivros: true}    });   
     return plainToInstance(ListaLivroDto, livrosDisponiveis);;
   }    
+
+  ////////////////////////////////////////       
+  async buscaPorNome(nome: string): Promise<ListaLivroDto | null> {
+    const livro = await this.prisma.livro.findUnique({ where: { nome } });
+    return plainToInstance(ListaLivroDto, livro);
+  }
   
 
 }

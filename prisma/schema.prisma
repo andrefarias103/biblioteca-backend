@@ -53,7 +53,7 @@ model Autor {
 
 model Livro {
     id               String           @id @default(uuid())
-    nome             String           @map("nome") @db.VarChar
+    nome             String           @unique() @map("nome") @db.VarChar
     isbn             String           @unique()
     dataDePublicacao String           @map("dataDePublicacao") @db.VarChar
     autorPorLivros   AutorPorLivros[]
