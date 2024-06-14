@@ -5,7 +5,7 @@ import {
   Get,
   Param,
   Patch,
-  Post
+  Post,
 } from '@nestjs/common';
 import { ApiOperation, ApiResponse } from '@nestjs/swagger';
 import { AtualizaAutorDto } from '../dto/atualiza-autor.dto';
@@ -18,7 +18,7 @@ export class AutorController {
   constructor(private readonly autorService: AutorService) {}
 
   @Post()
-  @ApiOperation({ summary: 'Cadastra um Autor'})
+  @ApiOperation({ summary: 'Cadastra um Autor' })
   @ApiResponse({
     status: 201,
     description: 'Cadastro do autor com sucesso',
@@ -29,31 +29,34 @@ export class AutorController {
   }
 
   @Get()
-  @ApiOperation({ summary: 'Lista todos os autores'})
+  @ApiOperation({ summary: 'Lista todos os autores' })
   async listarTodos(): Promise<ListaAutorDto[]> {
     return this.autorService.listarTodos();
   }
 
   @Get(':id')
-  @ApiOperation({ summary: 'Lista autor por Id'})
-  async BuscaPorId (@Param('id') id: string): Promise<ListaAutorDto> {
+  @ApiOperation({ summary: 'Lista autor por Id' })
+  async BuscaPorId(@Param('id') id: string): Promise<ListaAutorDto> {
     return this.autorService.buscaPorId(id);
   }
 
   @Get('/nome/:nome')
-  @ApiOperation({ summary: 'Lista autor por nome'})
+  @ApiOperation({ summary: 'Lista autor por nome' })
   async buscaAutorPorNome(@Param('nome') nome: string): Promise<ListaAutorDto> {
     return await this.autorService.buscaAutorPorNome(nome);
   }
 
   @Patch(':id')
-  @ApiOperation({ summary: 'Atualiza os dados de um autor existente'})
-  async atualizar(@Param('id') id: string, @Body() dadosAutor: AtualizaAutorDto): Promise<ListaAutorDto> {
+  @ApiOperation({ summary: 'Atualiza os dados de um autor existente' })
+  async atualizar(
+    @Param('id') id: string,
+    @Body() dadosAutor: AtualizaAutorDto,
+  ): Promise<ListaAutorDto> {
     return await this.autorService.atualizar(id, dadosAutor);
   }
 
   @Delete(':id')
-  @ApiOperation({ summary: 'Exclui um autor'})
+  @ApiOperation({ summary: 'Exclui um autor' })
   async remover(@Param('id') id: string) {
     return await this.autorService.remover(id);
   }
