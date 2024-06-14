@@ -53,7 +53,7 @@ export class LivroController {
     return await this.livroService.buscaLivroPorId(id);
   }
 
-  @Get('/livro/:nome')
+  @Get('/nome/:nome')
   @ApiOperation({ summary: 'Lista livro por nome' })
   async buscaAutorPorNome(@Param('nome') nome: string): Promise<ListaLivroDto> {
     return await this.livroService.buscaLivroPorNome(nome);
