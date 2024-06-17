@@ -8,6 +8,7 @@ export interface ILivroRepositorio {
     remover(id: string);
     buscaPorId(id: string): Promise<ListaLivroDto | null>;
     buscaPorNome(nome: string): Promise<ListaLivroDto | null>;
+    listarTodos(): Promise<ListaLivroDto[]> | null;
     ObtemlistarPorId(listaId: string[]): Promise<ListaLivroDto[] | null>;
     ObtemlistaReservados(): Promise<ListaLivroDto[] | null> 
     ObtemlistaDisponiveis(): Promise<ListaLivroDto[] | null> 

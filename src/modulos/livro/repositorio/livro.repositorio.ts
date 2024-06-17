@@ -33,9 +33,22 @@ export class LivroRepositorio implements ILivroRepositorio {
       return this.prisma.livro.delete({ where: { id } });
     }
 
+      ////////////////////////////////////////  
+    async listarTodos(): Promise<ListaLivroDto[]> {
+      const livros = await this.prisma.livro.findMany({ include: { autorPorLivros: false}    });
+      return plainToInstance(ListaLivroDto, livros);
+    }
+
   ////////////////////////////////////////     
     async buscaPorId(id: string): Promise<ListaLivroDto | null> {
-      const livro = await this.prisma.livro.findUnique({ where: { id } });
+      //const livro = await this.prisma.livro.findUnique({ where: { id } });
+      const livro = await this.prisma.livro.findUnique({ where: { id }, 
+        include: { 
+                    autorPorLivros: { 
+                                       include: { autor: true,},
+                                     },
+                 },
+       });
       return plainToInstance(ListaLivroDto, livro);
     }
 
@@ -59,7 +72,13 @@ export class LivroRepositorio implements ILivroRepositorio {
 
   ////////////////////////////////////////       
   async buscaPorNome(nome: string): Promise<ListaLivroDto | null> {
-    const livro = await this.prisma.livro.findUnique({ where: { nome } });
+    const livro = await this.prisma.livro.findUnique({ where: { nome }, 
+                                                       include: { 
+                                                                   autorPorLivros: { 
+                                                                                      include: { autor: true,},
+                                                                                    },
+                                                                },
+                                                      });
     return plainToInstance(ListaLivroDto, livro);
   }
   

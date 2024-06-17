@@ -1,5 +1,5 @@
 import { IsNotEmpty, IsOptional, IsString, Matches } from "class-validator";
-import { ValidacaoCPF } from "../../../comum/recurso/validacao/cpf.validador";
+import { ValidationCPF } from "../../../comum/recurso/validacao/cpf.validador";
 
 export class CadastraLocatarioDto {
     @IsNotEmpty()
@@ -24,7 +24,7 @@ export class CadastraLocatarioDto {
     dataDeNascimento: string;     
     
     @IsNotEmpty()
-    @ValidacaoCPF({ message: "O CPF informado é inválido!" })
+    @ValidationCPF({ message: "O CPF informado é inválido!" })
     cpf: string;    
     
 }

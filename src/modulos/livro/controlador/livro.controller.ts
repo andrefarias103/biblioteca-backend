@@ -29,8 +29,9 @@ export class LivroController {
   }
 
   @Get()
-  findAll() {
-    return this.livroService.findAll();
+  @ApiOperation({ summary: 'Lista todos os livros' })
+  async listarTodos(): Promise<ListaLivroDto[]> {
+    return this.livroService.listarTodos();
   }
 
   @Get('reservados/')
@@ -56,15 +57,8 @@ export class LivroController {
   @Get('/nome/:nome')
   @ApiOperation({ summary: 'Lista livro por nome' })
   async buscaAutorPorNome(@Param('nome') nome: string): Promise<ListaLivroDto> {
-    return await this.livroService.buscaLivroPorNome(nome);
-  }
-
-  @Get('autor/:id')
-  @ApiOperation({ summary: 'Lista livro por autor' })
-  async buscaLivroPorAutor(
-    @Param('id') id: string,
-  ): Promise<ListaLivroDto[] | null> {
-    return await this.livroService.buscaLivroPorAutor(id);
+    const livro= await this.livroService.buscaLivroPorNome(nome);
+    return livro;
   }
 
   @Patch(':id')

@@ -63,8 +63,8 @@ export class LivroService {
   }
 
   ////////////////////////////////////////
-  findAll() {
-    return `This action returns all book`;
+  async listarTodos(): Promise<ListaLivroDto[]> {
+    return this.livroRepositorio.listarTodos();
   }
 
   ////////////////////////////////////////
@@ -109,7 +109,9 @@ export class LivroService {
 
   ////////////////////////////////////////
   async buscaLivroPorNome(nome: string): Promise<ListaLivroDto> {
-    const livro = await this.livroRepositorio.buscaPorNome(nome);
+    const livro = await this.livroRepositorio.buscaPorNome(nome);    
     return livro;
   }
+
+
 }

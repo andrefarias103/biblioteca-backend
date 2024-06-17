@@ -33,4 +33,5 @@ export class AutorService {
     const autor = await this.autorRepositorio.buscaPorNome(nome);
     return autor;
   }
+
 }

@@ -16,7 +16,7 @@ export class CadastraLivroDto {
 
     @IsArray()
     @ArrayNotEmpty()
-    autorPorLivros: string[]
+    autorPorLivros: string[];
 
     @IsOptional()
     @IsString()   
