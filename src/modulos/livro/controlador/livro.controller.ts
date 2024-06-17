@@ -37,14 +37,28 @@ export class LivroController {
   @Get('reservados/')
   @ApiOperation({ summary: 'Lista todos os livros reservados' })
   async buscaLivrosReservados(): Promise<ListaLivroDto[] | null> {
-    const livrosReservados = await this.livroService.buscaLivroReservados();
+    const livrosReservados = await this.livroService.buscaLivroReservados('');
+    return livrosReservados;
+  }
+
+  @Get('reservados/:nome')
+  @ApiOperation({ summary: 'Lista todos os livros reservados por nome' })
+  async buscaLivrosReservadosPorNome(@Param('nome') nome: string): Promise<ListaLivroDto[] | null> {
+    const livrosReservados = await this.livroService.buscaLivroReservados(nome);
     return livrosReservados;
   }
 
   @Get('disponiveis/')
   @ApiOperation({ summary: 'Lista todos os livros disponíveis' })
   async buscaLivrosDisponiveis(): Promise<ListaLivroDto[] | null> {
-    const livrosDisponiveis = await this.livroService.buscaLivrosDisponiveis();
+    const livrosDisponiveis = await this.livroService.buscaLivrosDisponiveis('');
+    return livrosDisponiveis;
+  }
+
+  @Get('disponiveis/:nome')
+  @ApiOperation({ summary: 'Lista todos os livros disponíveis por nome' })
+  async buscaLivrosDisponiveisPorNome(@Param('nome') nome: string): Promise<ListaLivroDto[] | null> {
+    const livrosDisponiveis = await this.livroService.buscaLivrosDisponiveis(nome);
     return livrosDisponiveis;
   }
 
@@ -56,7 +70,7 @@ export class LivroController {
 
   @Get('/nome/:nome')
   @ApiOperation({ summary: 'Lista livro por nome' })
-  async buscaAutorPorNome(@Param('nome') nome: string): Promise<ListaLivroDto> {
+  async buscaAutorPorNome(@Param('nome') nome: string): Promise<ListaLivroDto[]> {
     const livro= await this.livroService.buscaLivroPorNome(nome);
     return livro;
   }

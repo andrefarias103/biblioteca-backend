@@ -29,4 +29,13 @@ export class LocatarioService {
   async remover(id: string) {
     return await this.locatarioRepositorio.remover(id);
   }
+
+  async buscaPorId(id: string): Promise<ListaLocatarioDto> {
+    return this.locatarioRepositorio.buscaPorId(id);
+  }
+
+  async buscaAutorPorNome(nome: string): Promise<ListaLocatarioDto> {
+    const autor = await this.locatarioRepositorio.buscaPorNome(nome);
+    return autor;
+  }
 }

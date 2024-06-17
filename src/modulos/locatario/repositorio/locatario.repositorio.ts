@@ -41,5 +41,13 @@ export class LocatarioRepositorio implements ILocatarioRepositorio {
     return await this.prisma.locatario.delete ({ where: { id } });
   }
 
+  async buscaPorId(id: string): Promise<ListaLocatarioDto> {
+    return await this.prisma.locatario.findUnique({ where: { id } });
+  }
+
+  async buscaPorNome(nome: string): Promise<ListaLocatarioDto> {
+     return await this.prisma.locatario.findUnique({ where: { nome } });
+  }  
+
   // Outros métodos...
 }

@@ -9,7 +9,7 @@ datasource db {
 
 model Locatario {
     id               String    @id @default(uuid())
-    nome             String    @map("nome") @db.VarChar
+    nome             String    @unique() @map("nome") @db.VarChar
     sexo             String?   @map("sexo") @db.VarChar
     telefone         String    @map("telefone") @db.VarChar
     email            String    @unique() @map("email") @db.VarChar

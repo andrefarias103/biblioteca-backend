@@ -98,17 +98,17 @@ export class LivroService {
   }
 
   ////////////////////////////////////////
-  async buscaLivroReservados(): Promise<ListaLivroDto[] | null> {
-    return await this.livroRepositorio.ObtemlistaReservados();
+  async buscaLivroReservados(nome: string): Promise<ListaLivroDto[] | null> {
+    return await this.livroRepositorio.ObtemlistaReservados(nome);
   }
 
   ////////////////////////////////////////
-  async buscaLivrosDisponiveis(): Promise<ListaLivroDto[] | null> {
-    return await this.livroRepositorio.ObtemlistaDisponiveis();
+  async buscaLivrosDisponiveis(nome: string): Promise<ListaLivroDto[] | null> {
+    return await this.livroRepositorio.ObtemlistaDisponiveis(nome);
   }
 
   ////////////////////////////////////////
-  async buscaLivroPorNome(nome: string): Promise<ListaLivroDto> {
+  async buscaLivroPorNome(nome: string): Promise<ListaLivroDto[]> {
     const livro = await this.livroRepositorio.buscaPorNome(nome);    
     return livro;
   }

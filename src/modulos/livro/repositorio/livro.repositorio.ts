@@ -59,26 +59,41 @@ export class LivroRepositorio implements ILivroRepositorio {
     }
 
   ////////////////////////////////////////       
-    async ObtemlistaReservados(): Promise<ListaLivroDto[]> {
-      const livrosReservados = await this.prisma.livro.findMany({ where: { aluguelId: { not: null} }, include: { autorPorLivros: true}    });   
-      return plainToInstance(ListaLivroDto, livrosReservados);;
+    async ObtemlistaReservados(nome: string): Promise<ListaLivroDto[]> {
+      if (nome) {
+      const livrosReservados = await this.prisma.livro.findMany({ where: { nome: { contains: nome, mode: "insensitive" } , aluguelId: { not: null} }, include: { autorPorLivros: true} });   
+      return plainToInstance(ListaLivroDto, livrosReservados);
+      }
+      else {
+        const livrosReservados = await this.prisma.livro.findMany({ where: { aluguelId: { not: null} }, include: { autorPorLivros: true} });   
+        return plainToInstance(ListaLivroDto, livrosReservados);     
+      }
     }
 
   ////////////////////////////////////////       
-  async ObtemlistaDisponiveis(): Promise<ListaLivroDto[]> {
-    const livrosDisponiveis = await this.prisma.livro.findMany({ where: { aluguelId: null }, include: { autorPorLivros: true}    });   
-    return plainToInstance(ListaLivroDto, livrosDisponiveis);;
+  async ObtemlistaDisponiveis(nome: string): Promise<ListaLivroDto[]> {
+    if (nome) {
+      const livrosDisponiveis = await this.prisma.livro.findMany({ where: { nome: { contains: nome, mode: "insensitive" }, aluguelId: null }, include: { autorPorLivros: true}    });   
+      return plainToInstance(ListaLivroDto, livrosDisponiveis);
+    }
+    else {
+      const livrosDisponiveis = await this.prisma.livro.findMany({ where: { aluguelId: null }, include: { autorPorLivros: true}    });   
+      return plainToInstance(ListaLivroDto, livrosDisponiveis);
+    }
   }    
 
   ////////////////////////////////////////       
-  async buscaPorNome(nome: string): Promise<ListaLivroDto | null> {
-    const livro = await this.prisma.livro.findUnique({ where: { nome }, 
+  async buscaPorNome(nome: string): Promise<ListaLivroDto[] | null> {
+    const livro = await this.prisma.livro.findMany({ where: { nome: { contains: nome, mode: "insensitive" } },
                                                        include: { 
                                                                    autorPorLivros: { 
                                                                                       include: { autor: true,},
                                                                                     },
                                                                 },
                                                       });
+   if (!livro) {
+    return [];
+   }
     return plainToInstance(ListaLivroDto, livro);
   }
   
