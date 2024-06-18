@@ -20,10 +20,17 @@ export class LocatarioController {
     return this.locatarioService.cadastrar(dadosLocatario);
   }
 
-  @Get()
-  findAll() {
-    return this.locatarioService.findAll();
+  @Get('/nome/')
+  @ApiOperation({ summary: 'Lista locatários' })
+  async buscaLocatarios(): Promise<ListaLocatarioDto[]> {
+    return await this.locatarioService.buscaLocatarioPorNome('');
   }
+  @Get('/nome/:nome')
+  @ApiOperation({ summary: 'Lista locatário por nome' })
+  async buscaLocatarioPorNome(@Param('nome') nome: string): Promise<ListaLocatarioDto[]> {
+    return await this.locatarioService.buscaLocatarioPorNome(nome);
+  }
+
 
   @Get(':id')
   @ApiOperation({ summary: 'Lista locatário por Id' })
@@ -31,11 +38,7 @@ export class LocatarioController {
     return this.locatarioService.buscaPorId(id);
   }
 
-  @Get('/nome/:nome')
-  @ApiOperation({ summary: 'Lista locatário por nome' })
-  async buscaAutorPorNome(@Param('nome') nome: string): Promise<ListaLocatarioDto> {
-    return await this.locatarioService.buscaAutorPorNome(nome);
-  }
+
 
   @Patch(':id')
   @ApiOperation({ summary: 'Atualiza os dados de um locatário existente'})

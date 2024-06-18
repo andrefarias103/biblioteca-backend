@@ -34,7 +34,7 @@ export class LocatarioService {
     return this.locatarioRepositorio.buscaPorId(id);
   }
 
-  async buscaAutorPorNome(nome: string): Promise<ListaLocatarioDto> {
+  async buscaLocatarioPorNome(nome: string): Promise<ListaLocatarioDto[]> {
     const autor = await this.locatarioRepositorio.buscaPorNome(nome);
     return autor;
   }

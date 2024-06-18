@@ -8,6 +8,6 @@ export interface ILocatarioRepositorio {
     atualizar(id: string, data: AtualizaLocatarioDto): Promise<ListaLocatarioDto>;
     remover(id: string);
     buscaPorId(id: string): Promise<ListaLocatarioDto | null>;
-    buscaPorNome(nome: string): Promise<ListaLocatarioDto | null>;
+    buscaPorNome(nome: string): Promise<ListaLocatarioDto[] | null>;
     // Outros métodos...
   }
