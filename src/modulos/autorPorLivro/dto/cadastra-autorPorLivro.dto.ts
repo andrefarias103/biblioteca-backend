@@ -1,11 +1,11 @@
-import { IsNotEmpty, IsString } from "class-validator";
+import { IsNotEmpty, IsString } from 'class-validator';
 
 export class CadastraAutorPorLivroDto {
-    @IsNotEmpty()
-    @IsString()
-    autorId: string;
+  @IsNotEmpty()
+  @IsString()
+  autorId: string;
 
-    @IsNotEmpty()
-    @IsString()    
-    livroId: string;
+  @IsNotEmpty()
+  @IsString()
+  livroId: string;
 }

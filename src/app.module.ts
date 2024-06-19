@@ -5,12 +5,7 @@ import { LivroModule } from './modulos/livro/livro.module';
 import { LocatarioModule } from './modulos/locatario/locatario.module';
 
 @Module({
-  imports: [
-    LocatarioModule,
-    AluguelModule,
-    AutorModule,
-    LivroModule,
-  ],
+  imports: [LocatarioModule, AluguelModule, AutorModule, LivroModule],
   controllers: [],
   providers: [],
 })

@@ -1,8 +1,7 @@
-import { IsNotEmpty, IsNumber, IsOptional, IsString } from "class-validator";
-import { ValidationCPF } from "../../../comum/recurso/validacao/cpf.validador";
+import { IsNotEmpty, IsNumber, IsOptional, IsString } from 'class-validator';
+import { ValidationCPF } from '../../../comum/recurso/validacao/cpf.validador';
 
 export class CadastraAutorDto {
-
   @IsNotEmpty()
   @IsString()
   nome: string;
@@ -16,7 +15,6 @@ export class CadastraAutorDto {
   anoDeNascimento: number;
 
   @IsNotEmpty()
-  @ValidationCPF({ message: "O CPF informado é inválido!" })
+  @ValidationCPF({ message: 'O CPF informado é inválido!' })
   cpf: string;
-
-  }
+}

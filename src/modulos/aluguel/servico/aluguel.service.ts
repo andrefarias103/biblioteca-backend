@@ -5,28 +5,36 @@ import { ILivroRepositorio } from '../../../modulos/livro/interface/livro-reposi
 import { CadastraAluguelDto } from '../dto/cadastra-aluguel.dto';
 import { ListaAluguelDto } from '../dto/lista-aluguel.dto';
 import { IAluguelRepositorio } from '../interface/aluguel-repositorio.interface';
-import { ALUGUEL_REPOSITORIO, LIVRO_REPOSITORIO } from './../../../comum/constantes/constantes';
+import {
+  ALUGUEL_REPOSITORIO,
+  LIVRO_REPOSITORIO,
+} from './../../../comum/constantes/constantes';
 
 @Injectable()
 export class AluguelService {
-  constructor(@Inject(ALUGUEL_REPOSITORIO) private readonly aluguelRepositorio: IAluguelRepositorio,
-              @Inject(LIVRO_REPOSITORIO) private readonly livroRepositorio: ILivroRepositorio) {}
+  constructor(
+    @Inject(ALUGUEL_REPOSITORIO)
+    private readonly aluguelRepositorio: IAluguelRepositorio,
+    @Inject(LIVRO_REPOSITORIO)
+    private readonly livroRepositorio: ILivroRepositorio,
+  ) {}
 
-              
   ////////////////////////////////////////
-  private validacaoDataReserva(dataRetirada: string, dataDevolucao: string): string {
+  private validacaoDataReserva(
+    dataRetirada: string,
+    dataDevolucao: string,
+  ): string {
     if (new Date(dataRetirada) >= new Date(dataDevolucao)) {
-      return ('Data/hora de retirada não pode ser maior que a data/hora de devolução');
+      return 'Data/hora de retirada não pode ser maior que a data/hora de devolução';
     }
-    if (new Date(dataRetirada) <= new Date(Date.now()) ) {
-      return ('Data/hora de retirada não pode ser menor que a data/hora atual');
+    if (new Date(dataRetirada) <= new Date(Date.now())) {
+      return 'Data/hora de retirada não pode ser menor que a data/hora atual';
     }
     return '';
-  }      
+  }
 
-  ////////////////////////////////////////       
+  ////////////////////////////////////////
   async cadastrar(dadosAluguel: CadastraAluguelDto): Promise<ListaAluguelDto> {
-  
     const { livro, dataRetirada, dataDevolucao } = dadosAluguel;
 
     const msg_retorno = this.validacaoDataReserva(dataRetirada, dataDevolucao);
@@ -35,21 +43,22 @@ export class AluguelService {
     }
 
     const aluguel = await this.aluguelRepositorio.cadastrar(dadosAluguel);
-    
-    livro.map( async (unidade) => {
 
-      const livroDesejado = await this.livroRepositorio.buscaPorId(unidade); 
-    
-      const livroAtualizado: AtualizaLivroDto = { ...livroDesejado, aluguelId: aluguel.id};
+    livro.map(async (unidade) => {
+      const livroDesejado = await this.livroRepositorio.buscaPorId(unidade);
 
-      await this.livroRepositorio.atualizar(unidade, livroAtualizado );
+      const livroAtualizado: AtualizaLivroDto = {
+        ...livroDesejado,
+        aluguelId: aluguel.id,
+      };
 
-    })
+      await this.livroRepositorio.atualizar(unidade, livroAtualizado);
+    });
 
     return plainToInstance(ListaAluguelDto, aluguel);
   }
 
-  ////////////////////////////////////////       
+  ////////////////////////////////////////
   async remover(id: string) {
     return await this.aluguelRepositorio.remover(id);
   }

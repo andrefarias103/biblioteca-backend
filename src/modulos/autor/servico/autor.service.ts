@@ -7,9 +7,12 @@ import { AUTOR_REPOSITORIO } from './../../../comum/constantes/constantes';
 
 @Injectable()
 export class AutorService {
-  constructor(@Inject(AUTOR_REPOSITORIO) private readonly autorRepositorio: IAutorRepositorio) {}
+  constructor(
+    @Inject(AUTOR_REPOSITORIO)
+    private readonly autorRepositorio: IAutorRepositorio,
+  ) {}
 
-  async cadastrar(dadosAutor: CadastraAutorDto):Promise<ListaAutorDto> {
+  async cadastrar(dadosAutor: CadastraAutorDto): Promise<ListaAutorDto> {
     return await this.autorRepositorio.cadastrar(dadosAutor);
   }
 
@@ -33,5 +36,4 @@ export class AutorService {
     const autor = await this.autorRepositorio.buscaPorNome(nome);
     return autor;
   }
-
 }

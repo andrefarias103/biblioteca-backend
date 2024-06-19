@@ -109,9 +109,7 @@ export class LivroService {
 
   ////////////////////////////////////////
   async buscaLivroPorNome(nome: string): Promise<ListaLivroDto[]> {
-    const livro = await this.livroRepositorio.buscaPorNome(nome);    
+    const livro = await this.livroRepositorio.buscaPorNome(nome);
     return livro;
   }
-
-
 }

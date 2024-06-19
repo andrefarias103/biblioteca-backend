@@ -1,4 +1,12 @@
-import { Body, Controller, Delete, Get, Param, Patch, Post } from '@nestjs/common';
+import {
+  Body,
+  Controller,
+  Delete,
+  Get,
+  Param,
+  Patch,
+  Post,
+} from '@nestjs/common';
 import { ApiOperation, ApiResponse } from '@nestjs/swagger';
 import { AtualizaLocatarioDto } from '../dto/atualiza-locatario.dto';
 import { CadastraLocatarioDto } from '../dto/cadastra-locatario.dto';
@@ -10,13 +18,15 @@ export class LocatarioController {
   constructor(private readonly locatarioService: LocatarioService) {}
 
   @Post()
-  @ApiOperation({ summary: 'Cadastra um Locatário'})
+  @ApiOperation({ summary: 'Cadastra um Locatário' })
   @ApiResponse({
     status: 201,
     description: 'Cadastro do locatário com sucesso',
     // type: CreateTodosSwagger
   })
-  async cadastrar(@Body() dadosLocatario: CadastraLocatarioDto): Promise<ListaLocatarioDto> {
+  async cadastrar(
+    @Body() dadosLocatario: CadastraLocatarioDto,
+  ): Promise<ListaLocatarioDto> {
     return this.locatarioService.cadastrar(dadosLocatario);
   }
 
@@ -27,10 +37,11 @@ export class LocatarioController {
   }
   @Get('/nome/:nome')
   @ApiOperation({ summary: 'Lista locatário por nome' })
-  async buscaLocatarioPorNome(@Param('nome') nome: string): Promise<ListaLocatarioDto[]> {
+  async buscaLocatarioPorNome(
+    @Param('nome') nome: string,
+  ): Promise<ListaLocatarioDto[]> {
     return await this.locatarioService.buscaLocatarioPorNome(nome);
   }
-
 
   @Get(':id')
   @ApiOperation({ summary: 'Lista locatário por Id' })
@@ -38,16 +49,17 @@ export class LocatarioController {
     return this.locatarioService.buscaPorId(id);
   }
 
-
-
   @Patch(':id')
-  @ApiOperation({ summary: 'Atualiza os dados de um locatário existente'})
-  async atualizar(@Param('id') id: string, @Body() dadosLocatario: AtualizaLocatarioDto) {
+  @ApiOperation({ summary: 'Atualiza os dados de um locatário existente' })
+  async atualizar(
+    @Param('id') id: string,
+    @Body() dadosLocatario: AtualizaLocatarioDto,
+  ) {
     return this.locatarioService.atualizar(id, dadosLocatario);
   }
 
   @Delete(':id')
-  @ApiOperation({ summary: 'Exclui um locatário'})
+  @ApiOperation({ summary: 'Exclui um locatário' })
   async remover(@Param('id') id: string) {
     return this.locatarioService.remover(id);
   }

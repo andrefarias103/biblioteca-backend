@@ -1,17 +1,17 @@
-import { Injectable } from "@nestjs/common";
+import { Injectable } from '@nestjs/common';
 import {
-    ValidationOptions,
-    ValidatorConstraint,
-    ValidatorConstraintInterface,
-    registerDecorator,
-} from "class-validator";
+  ValidationOptions,
+  ValidatorConstraint,
+  ValidatorConstraintInterface,
+  registerDecorator,
+} from 'class-validator';
 
 @Injectable()
 @ValidatorConstraint({ async: true })
 export class CpfValidator implements ValidatorConstraintInterface {
   async validate(value: string): Promise<boolean> {
     // Remover caracteres não numéricos
-    let cpf = value.replace(/[^\d]/g, "");
+    let cpf = value.replace(/[^\d]/g, '');
 
     if (cpf.length !== 11) {
       return false;

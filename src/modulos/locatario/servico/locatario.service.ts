@@ -7,9 +7,14 @@ import { ILocatarioRepositorio } from '../interface/locatario-repositorio.interf
 
 @Injectable()
 export class LocatarioService {
-  constructor(@Inject(LOCATARIO_REPOSITORIO) private readonly locatarioRepositorio: ILocatarioRepositorio) {}
+  constructor(
+    @Inject(LOCATARIO_REPOSITORIO)
+    private readonly locatarioRepositorio: ILocatarioRepositorio,
+  ) {}
 
-  async cadastrar(dadosLocatario: CadastraLocatarioDto): Promise<ListaLocatarioDto> {
+  async cadastrar(
+    dadosLocatario: CadastraLocatarioDto,
+  ): Promise<ListaLocatarioDto> {
     const locatario = await this.locatarioRepositorio.cadastrar(dadosLocatario);
     return locatario;
   }

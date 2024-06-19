@@ -4,19 +4,21 @@ import { LocatarioController } from '../controlador/locatario.controller';
 import { CadastraLocatarioDto } from '../dto/cadastra-locatario.dto';
 import { LocatarioRepositorio } from '../repositorio/locatario.repositorio';
 import { LocatarioService } from '../servico/locatario.service';
-import { PrismaService } from "./../../../../prisma/prisma.service";
+import { PrismaService } from './../../../../prisma/prisma.service';
 import { LOCATARIO_REPOSITORIO } from './../../../comum/constantes/constantes';
 
 describe('LocatarioService', () => {
-
   let locatarioService: LocatarioService;
 
   beforeEach(async () => {
     const module: TestingModule = await Test.createTestingModule({
       imports: [],
       controllers: [LocatarioController],
-      providers: [LocatarioService, LocatarioRepositorio, PrismaService,
-                  { provide: LOCATARIO_REPOSITORIO,  useClass: LocatarioRepositorio  },
+      providers: [
+        LocatarioService,
+        LocatarioRepositorio,
+        PrismaService,
+        { provide: LOCATARIO_REPOSITORIO, useClass: LocatarioRepositorio },
       ],
     }).compile();
 
@@ -29,114 +31,121 @@ describe('LocatarioService', () => {
 
   describe(' - Cadastro', () => {
     it('Deve cadastrar um novo locatário', async () => {
-        const mockLocatarioDto: CadastraLocatarioDto = {
-            nome: "Maria Eduardo do Nascimento",
-            sexo: "Feminino",
-            telefone: "5198118-0588",
-            email: "maria_nascimento@gmail.com",
-            dataDeNascimento: "1988-05-16",
-            cpf: "483.462.240-10"
-        };
-        const resultado = { id: uuidv4(), ...mockLocatarioDto };
+      const mockLocatarioDto: CadastraLocatarioDto = {
+        nome: 'Maria Eduardo do Nascimento',
+        sexo: 'Feminino',
+        telefone: '5198118-0588',
+        email: 'maria_nascimento@gmail.com',
+        dataDeNascimento: '1988-05-16',
+        cpf: '483.462.240-10',
+      };
+      const resultado = { id: uuidv4(), ...mockLocatarioDto };
 
-        jest.spyOn(locatarioService, 'cadastrar').mockResolvedValue(resultado);
+      jest.spyOn(locatarioService, 'cadastrar').mockResolvedValue(resultado);
 
-        expect(await locatarioService.cadastrar(mockLocatarioDto)).toEqual(resultado);
+      expect(await locatarioService.cadastrar(mockLocatarioDto)).toEqual(
+        resultado,
+      );
 
-        expect(locatarioService.cadastrar).toHaveBeenCalled();
+      expect(locatarioService.cadastrar).toHaveBeenCalled();
     });
 
     it('Deve ocorrer erros durante o cadastro do locatario', async () => {
       const mockLocatarioDto: CadastraLocatarioDto = {
-        nome: "Maria Eduardo do Nascimento",
-        sexo: "Feminino",
-        telefone: "5198118-0588",
-        email: "maria_nascimento@gmail.com",
-        dataDeNascimento: "1988-05-16",
-        cpf: "483.462.240-10"
+        nome: 'Maria Eduardo do Nascimento',
+        sexo: 'Feminino',
+        telefone: '5198118-0588',
+        email: 'maria_nascimento@gmail.com',
+        dataDeNascimento: '1988-05-16',
+        cpf: '483.462.240-10',
       };
-        const error = new Error('Database error');
+      const error = new Error('Database error');
 
-        jest.spyOn(locatarioService, 'cadastrar').mockRejectedValue(error);
+      jest.spyOn(locatarioService, 'cadastrar').mockRejectedValue(error);
 
-        await expect(locatarioService.cadastrar(mockLocatarioDto)).rejects.toThrow(error);
+      await expect(
+        locatarioService.cadastrar(mockLocatarioDto),
+      ).rejects.toThrow(error);
     });
   });
 
   describe(' - Atualização', () => {
     it('Deve atualizar os dados de um locatario existente', async () => {
-        const id: string = uuidv4();
-        const mockLocatarioDto: CadastraLocatarioDto = {
-          nome: "Maria Eduardo do Nascimento",
-          sexo: "Feminino",
-          telefone: "5198118-0588",
-          email: "maria_nascimento@gmail.com",
-          dataDeNascimento: "1988-05-16",
-          cpf: "483.462.240-10"
-        };
-        const resultado = { id, ...mockLocatarioDto };
+      const id: string = uuidv4();
+      const mockLocatarioDto: CadastraLocatarioDto = {
+        nome: 'Maria Eduardo do Nascimento',
+        sexo: 'Feminino',
+        telefone: '5198118-0588',
+        email: 'maria_nascimento@gmail.com',
+        dataDeNascimento: '1988-05-16',
+        cpf: '483.462.240-10',
+      };
+      const resultado = { id, ...mockLocatarioDto };
 
-        jest.spyOn(locatarioService, 'atualizar').mockResolvedValue(resultado);
+      jest.spyOn(locatarioService, 'atualizar').mockResolvedValue(resultado);
 
-        expect(await locatarioService.atualizar(id, mockLocatarioDto)).toEqual(resultado);
+      expect(await locatarioService.atualizar(id, mockLocatarioDto)).toEqual(
+        resultado,
+      );
 
-        expect(locatarioService.atualizar).toHaveBeenCalled();
+      expect(locatarioService.atualizar).toHaveBeenCalled();
     });
 
     it('Deve ocorrer erros durante a atualização dos dados do locatario', async () => {
-        const id: string = uuidv4();
-        const mockLocatarioDto: CadastraLocatarioDto = {
-          nome: "Maria Eduardo do Nascimento",
-          sexo: "Feminino",
-          telefone: "5198118-0588",
-          email: "maria_nascimento@gmail.com",
-          dataDeNascimento: "1988-05-16",
-          cpf: "483.462.240-10"
-        };
-        const error = new Error('Database error');
+      const id: string = uuidv4();
+      const mockLocatarioDto: CadastraLocatarioDto = {
+        nome: 'Maria Eduardo do Nascimento',
+        sexo: 'Feminino',
+        telefone: '5198118-0588',
+        email: 'maria_nascimento@gmail.com',
+        dataDeNascimento: '1988-05-16',
+        cpf: '483.462.240-10',
+      };
+      const error = new Error('Database error');
 
-        jest.spyOn(locatarioService, 'atualizar').mockRejectedValue(error);
+      jest.spyOn(locatarioService, 'atualizar').mockRejectedValue(error);
 
-        await expect(locatarioService.atualizar(id, mockLocatarioDto)).rejects.toThrow(error);
+      await expect(
+        locatarioService.atualizar(id, mockLocatarioDto),
+      ).rejects.toThrow(error);
     });
   });
-    
+
   describe(' - Exclusão', () => {
     it('Deve apagar os registros de um locatario existente', async () => {
-        const id: string = uuidv4();
-        const mockLocatarioDto: CadastraLocatarioDto = {
-          nome: "Maria Eduardo do Nascimento",
-          sexo: "Feminino",
-          telefone: "5198118-0588",
-          email: "maria_nascimento@gmail.com",
-          dataDeNascimento: "1988-05-16",
-          cpf: "483.462.240-10"
-        };
-        const resultado = { id, ...mockLocatarioDto };
+      const id: string = uuidv4();
+      const mockLocatarioDto: CadastraLocatarioDto = {
+        nome: 'Maria Eduardo do Nascimento',
+        sexo: 'Feminino',
+        telefone: '5198118-0588',
+        email: 'maria_nascimento@gmail.com',
+        dataDeNascimento: '1988-05-16',
+        cpf: '483.462.240-10',
+      };
+      const resultado = { id, ...mockLocatarioDto };
 
-        jest.spyOn(locatarioService, 'remover').mockResolvedValue(resultado);
+      jest.spyOn(locatarioService, 'remover').mockResolvedValue(resultado);
 
-        expect(await locatarioService.remover(id)).toEqual(resultado);
+      expect(await locatarioService.remover(id)).toEqual(resultado);
 
-        expect(locatarioService.remover).toHaveBeenCalled();
+      expect(locatarioService.remover).toHaveBeenCalled();
     });
 
     it('Deve ocorrer erro ao apagar um locatario existente', async () => {
-        const id: string = uuidv4();
-        const mockLocatarioDto: CadastraLocatarioDto = {
-          nome: "Maria Eduardo do Nascimento",
-          sexo: "Feminino",
-          telefone: "5198118-0588",
-          email: "maria_nascimento@gmail.com",
-          dataDeNascimento: "1988-05-16",
-          cpf: "483.462.240-10"
-        };
-        const error = new Error('Database error');
+      const id: string = uuidv4();
+      const mockLocatarioDto: CadastraLocatarioDto = {
+        nome: 'Maria Eduardo do Nascimento',
+        sexo: 'Feminino',
+        telefone: '5198118-0588',
+        email: 'maria_nascimento@gmail.com',
+        dataDeNascimento: '1988-05-16',
+        cpf: '483.462.240-10',
+      };
+      const error = new Error('Database error');
 
-        jest.spyOn(locatarioService, 'remover').mockRejectedValue(error);
+      jest.spyOn(locatarioService, 'remover').mockRejectedValue(error);
 
-        await expect(locatarioService.remover(id)).rejects.toThrow(error);
-
+      await expect(locatarioService.remover(id)).rejects.toThrow(error);
     });
-  });   
+  });
 });

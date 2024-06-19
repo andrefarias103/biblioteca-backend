@@ -22,7 +22,6 @@ export class AutorController {
   @ApiResponse({
     status: 201,
     description: 'Cadastro do autor com sucesso',
-    // type: CreateTodosSwagger
   })
   async cadastrar(@Body() dadosAutor: CadastraAutorDto) {
     return await this.autorService.cadastrar(dadosAutor);

@@ -1,6 +1,10 @@
 import { ValidationPipe } from '@nestjs/common';
 import { NestFactory } from '@nestjs/core';
-import { DocumentBuilder, SwaggerDocumentOptions, SwaggerModule } from '@nestjs/swagger';
+import {
+  DocumentBuilder,
+  SwaggerDocumentOptions,
+  SwaggerModule,
+} from '@nestjs/swagger';
 import { AppModule } from './app.module';
 
 async function bootstrap() {
@@ -13,7 +17,7 @@ async function bootstrap() {
       whitelist: true,
       forbidNonWhitelisted: true,
     }),
-  );  
+  );
 
   const config = new DocumentBuilder()
     .setTitle('Sistema de Biblioteca')
@@ -22,11 +26,8 @@ async function bootstrap() {
     .addTag('biblioteca')
     .build();
 
-  const options: SwaggerDocumentOptions =  {
-    operationIdFactory: (
-      controllerKey: string,
-      methodKey: string
-    ) => methodKey
+  const options: SwaggerDocumentOptions = {
+    operationIdFactory: (controllerKey: string, methodKey: string) => methodKey,
   };
 
   const document = SwaggerModule.createDocument(app, config, options);
