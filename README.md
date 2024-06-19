@@ -14,7 +14,7 @@ Sistema Biblioteca Escolar - Back-End
   
 ## Descrição
 
-Este projeto é um sistema back-end de gerenciamento de biblioteca escolar desenvolvido com NestJS e TypeScript. O sistema permite gerenciar locatários, livros, autores e empréstimos e devoluções, facilitando o controle e a organização da biblioteca.
+Este projeto é um sistema back-end de gerenciamento de biblioteca escolar desenvolvido com NestJS e TypeScript. O sistema permite gerenciar locatários, livros, autores e empréstimos e devoluções de livros, facilitando o controle e a organização da biblioteca.
 
 
 ## Funcionalidades
@@ -60,7 +60,6 @@ Siga as instruções abaixo para configurar e executar a aplicação:
 
    ```bash
    npm install
-   npm install node
 
 4. Instancie o banco de dados:
 
