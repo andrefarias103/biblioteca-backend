@@ -54,7 +54,6 @@ export class LocatarioRepositorio implements ILocatarioRepositorio {
        return plainToInstance(ListaLocatarioDto, locatario);
     }
     else {
-      console.log('sem nome');
       const locatario = await this.prisma.locatario.findMany();
       if (!locatario) {
         return [];
